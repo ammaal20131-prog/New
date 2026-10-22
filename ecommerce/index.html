@@ -40,11 +40,59 @@ img{max-width:100%}
 .app{min-height:100%;display:flex;flex-direction:column}
 
 /* top bar */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);
-  padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.toprow{padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
-.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;border:0;background:none;padding:0}
+.mainnav{display:flex;gap:4px;flex:1;min-width:0}
+.mainnav a{color:var(--muted);text-decoration:none;font-weight:700;padding:6px 12px;border-radius:10px;white-space:nowrap}
+.mainnav a:hover{color:var(--ink);background:var(--surface2)}
+.mainnav a.cur{color:var(--violet-ink);background:var(--violet)}
+.subnav{display:flex;gap:6px;overflow-x:auto;padding-block:0 10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));scrollbar-width:thin}
+.subnav button{flex:none;border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 14px;font-size:.88rem;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+.subnav button.cur{background:var(--lime);color:var(--lime-ink);border-color:transparent}
+.subnav button .ok{width:16px;height:16px;border-radius:50%;background:var(--good);color:#fff;display:inline-grid;place-items:center;font-size:.65rem}
+.readbar{height:4px;background:transparent}
+.readbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--lime),var(--violet))}
+.totop{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;width:48px;height:48px;border-radius:16px;border:0;background:var(--violet);color:var(--violet-ink);display:grid;place-items:center;box-shadow:0 8px 24px rgba(40,30,90,.3)}
+.totop svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.6}
+
+/* website sections */
+.site{width:100%;max-width:1180px;display:flex;flex-direction:column;gap:22px}
+.lhero{border-radius:32px;background:var(--violet);color:var(--violet-ink);padding:clamp(22px,4vw,48px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:center;position:relative;overflow:hidden}
+.lhero::before,.lhero::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.lhero::before{width:320px;height:320px;border:44px solid rgba(255,255,255,.08);left:-120px;top:-140px}
+.lhero::after{width:140px;height:140px;background:var(--lime);opacity:.9;left:30%;bottom:-90px}
+.lhero>*{position:relative;z-index:1}
+.lhero h1{font-size:clamp(1.9rem,4.4vw,3.3rem)}
+.lhero .tag{display:inline-block;background:var(--lime);color:var(--lime-ink);border-radius:999px;padding:4px 14px;font-weight:700;font-size:.85rem;margin-bottom:12px}
+.lhero .qt{margin-top:18px;background:rgba(255,255,255,.12);border-radius:18px;padding:14px 18px;font-weight:600;max-width:52ch}
+.lhero .qt small{display:block;color:var(--lime);font-weight:800;margin-bottom:4px}
+.lhero img{justify-self:center;max-height:260px;animation:float 5s ease-in-out infinite;filter:drop-shadow(0 14px 24px rgba(0,0,0,.25))}
+@keyframes float{50%{transform:translateY(-10px)}}
+.meter{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.meter .track{flex:1;min-width:140px;max-width:320px;height:12px;border-radius:12px;background:rgba(255,255,255,.18);overflow:hidden}
+.meter .track i{display:block;height:100%;width:0;background:var(--lime);border-radius:12px;transition:width .5s}
+.meter b{font-family:var(--display)}
+.sechead{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;padding:clamp(16px,2.6vw,28px) clamp(18px,3vw,34px);border-radius:26px;background:var(--surface2);border:1px solid var(--line);scroll-margin-top:130px;margin-top:18px}
+.sechead .num{width:56px;height:56px;border-radius:18px;background:var(--violet);color:var(--violet-ink);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.4rem}
+.sechead h2{font-size:clamp(1.4rem,3vw,2.3rem);color:var(--violet)}
+.sechead p{margin:2px 0 0;color:var(--muted);font-weight:600}
+.sechead img{max-height:90px;max-width:150px;object-fit:contain}
+.sechead.alt{background:var(--lime);border-color:transparent}
+.sechead.alt h2{color:var(--lime-ink)}.sechead.alt p{color:var(--lime-ink);opacity:.8}
+.sechead.alt .num{background:var(--lime-ink);color:var(--lime)}
+.block{scroll-margin-top:130px;transition:box-shadow .25s,border-color .25s}
+.block:hover{border-color:color-mix(in srgb,var(--violet) 40%,var(--line));box-shadow:0 14px 40px rgba(60,40,140,.08)}
+.block.done{border-color:var(--good)}
+.donebadge{position:absolute;top:16px;left:16px;background:var(--good);color:#fff;border-radius:999px;padding:2px 12px;font-size:.8rem;font-weight:700;z-index:2}
+.showans{align-self:flex-start}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:10px}
+.home .quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.home .quick .tile{min-height:110px}
+@media (max-width:860px){.lhero,.home .quick{grid-template-columns:1fr 1fr}.lhero{grid-template-columns:1fr}.lhero img{max-height:170px}.sechead{grid-template-columns:auto minmax(0,1fr)}.sechead img{display:none}.mainnav a{padding:6px 8px}}
+@media (max-width:520px){.home .quick{grid-template-columns:1fr 1fr}.mainnav a[data-go=home]{display:none}}
+.brand-x{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
 .brand b{font-family:var(--display);font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .brand span{color:var(--muted);font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .logo{width:34px;height:34px;border-radius:10px;background:var(--violet);display:grid;place-items:center;flex:none}
@@ -59,9 +107,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* stage */
 main{flex:1;display:flex;justify-content:center;padding-block:18px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.stage{width:100%;max-width:1240px;background:var(--surface);border-radius:28px;border:1px solid var(--line);position:relative;overflow:hidden;
-  padding:clamp(20px,3.4vw,48px);display:flex;flex-direction:column;gap:18px;min-height:min(72vh,720px)}
-.stage::after{content:"";position:absolute;inset:auto auto -90px -90px;width:240px;height:240px;border-radius:50%;border:34px solid var(--violet-soft);pointer-events:none}
+.stage{width:100%;background:var(--surface);border-radius:28px;border:1px solid var(--line);position:relative;overflow:hidden;
+  padding:clamp(18px,3vw,40px);display:flex;flex-direction:column;gap:16px}
 .stage>*{position:relative;z-index:1}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:700;color:var(--violet);letter-spacing:0}
 .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--lime);display:inline-block;box-shadow:0 0 0 3px var(--violet-soft)}
@@ -314,25 +361,26 @@ canvas.fx{position:fixed;inset:0;pointer-events:none;z-index:60}
 
 <div class="app" id="app">
   <header class="top">
-    <div class="brand">
+   <div class="toprow">
+    <button class="brand" id="brandBtn" aria-label="الصفحة الرئيسية">
       <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L22 8H6"/></svg></div>
-      <b id="lessonName">مقدمة في التجارة الإلكترونية</b><span id="secName">الوحدة الثالثة</span>
-    </div>
+      <b id="lessonName">التجارة الإلكترونية</b>
+    </button>
+    <nav class="mainnav" aria-label="الدروس"><a href="#home" data-go="home">الرئيسية</a><a href="#l1" data-go="l1">الدرس (١)</a><a href="#l2" data-go="l2">الدرس (٢)</a></nav>
     <div class="tools">
       <button class="tbtn mini-timer" id="miniTimer" hidden>00:00</button>
       <button class="tbtn" data-tool="timer" title="المؤقت"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg><span class="lbl">المؤقت</span></button>
       <button class="tbtn" data-tool="pick" title="اختيار طالبة"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span class="lbl">اختيار طالبة</span></button>
       <button class="tbtn" data-tool="groups" title="نقاط المجموعات"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span class="lbl">النقاط</span></button>
-      <button class="tbtn" id="tocBtn" title="فهرس الشرائح"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span class="lbl">الفهرس</span></button>
+      <button class="tbtn" id="tocBtn" title="أقسام الدرس"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span class="lbl">الأقسام</span></button>
       <button class="tbtn" id="fsBtn" title="ملء الشاشة"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
     </div>
+   </div>
+   <div class="subnav" id="subnav" hidden></div>
+   <div class="readbar"><i id="readFill"></i></div>
   </header>
   <main id="main"></main>
-  <nav class="nav" id="nav" hidden>
-    <button class="navbtn" id="prevBtn"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span class="lbl">السابق</span></button>
-    <div class="progress"><div class="bar"><i id="barFill"></i></div><div class="pinfo"><span id="pSec"></span><span id="pNum"></span></div></div>
-    <button class="navbtn primary" id="nextBtn"><span class="lbl">التالي</span><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-  </nav>
+  <button class="totop" id="toTop" hidden aria-label="العودة للأعلى"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button>
 </div>
 <div id="layer"></div>
 
@@ -519,7 +567,7 @@ l2:{name:"مقدمة في التجارة الإلكترونية (٢)",short:"ا�
 
 /* ---------- state ---------- */
 let cur=null, idx=0, step=0, maxStep=0;
-const main=$("#main"), nav=$("#nav");
+const main=$("#main");
 
 function meta(m,mode){
  if(!m&&!mode) return "";
@@ -539,7 +587,7 @@ rules(s,el){
  el.innerHTML=`<div><div class="eyebrow"><i></i>عقد التعلّم</div><h2 class="h2" style="margin-top:6px">قوانين صفّية</h2></div>
  <div class="rules">${RULES.map((r,i)=>`<div class="rule" data-s="${i+1}">${esc(r)}</div>`).join("")}</div>
  <div class="sign" data-s="${RULES.length+1}"><button class="btn v" id="signBtn">${ic("check")} نتعهّد بالالتزام</button><span class="muted" id="signMsg"></span></div>`;
- $("#signBtn",el).onclick=()=>{$$(".rule",el).forEach((r,i)=>setTimeout(()=>r.classList.add("ok"),i*150));$("#signMsg",el).textContent="تم توقيع عقد التعلّم. بالتوفيق للجميع!";burst()};
+ $("#signBtn",el).onclick=()=>{$$(".rule",el).forEach((r,i)=>setTimeout(()=>r.classList.add("ok"),i*150));$("#signMsg",el).textContent="تم توقيع عقد التعلّم. بالتوفيق للجميع!";burst();done(el)};
  return RULES.length+1;
 },
 divider(s,el){el.innerHTML=`<div class="eyebrow"><i></i>${esc(s.sec)}</div><div class="divider"><div><h2>${esc(s.title)}</h2>${s.sub?`<div class="sub">${esc(s.sub)}</div>`:""}</div>${s.img?`<img src="img/${s.img}.webp" alt="">`:`<div class="ring">${esc(s.ring||"")}</div>`}</div>`},
@@ -573,14 +621,14 @@ wordorder(s,el){
  build();
  el.querySelector('[data-a=reset]').onclick=build;
  el.querySelector('[data-a=check]').onclick=()=>{const got=$$(".w",line).map(b=>b.textContent).join(" ");
-  if(got===s.words.join(" ")){line.className="line good";fb.className="fb g";fb.textContent="أحسنتنّ! ترتيب صحيح.";burst();setStep(1)}
+  if(got===s.words.join(" ")){line.className="line good";fb.className="fb g";fb.textContent="أحسنتنّ! ترتيب صحيح.";burst();reveal(el);done(el)}
   else{line.className="line";void line.offsetWidth;line.classList.add("bad");fb.className="fb b";fb.textContent=bank.children.length?"أكملي ترتيب جميع الكلمات.":"ليس بعد… راجعي الترتيب."}};
- el.querySelector('[data-a=show]').onclick=()=>setStep(1);
+ el.querySelector('[data-a=show]').onclick=()=>reveal(el);
  return 1;
 },
 tiles(s,el){
  el.innerHTML=`${head(s)}<div class="q">${s.q}</div><div class="grid g3">${s.items.map(t=>`<button class="tile"><div class="qm">؟</div><div class="ic" hidden>${ic(t.i)}</div><span hidden>${esc(t.t)}</span></button>`).join("")}</div><div class="row"><button class="btn" data-a="all">${ic("eye")} إظهار الكل</button></div>`;
- const open=b=>{b.classList.add("on");$(".qm",b).hidden=true;$(".ic",b).hidden=false;$("span",b).hidden=false};
+ const open=b=>{b.classList.add("on");$(".qm",b).hidden=true;$(".ic",b).hidden=false;$("span",b).hidden=false;if($$(".tile:not(.on)",el).length===0)done(el)};
  $$(".tile",el).forEach(b=>b.onclick=()=>open(b));
  $('[data-a=all]',el).onclick=()=>$$(".tile",el).forEach(open);
 },
@@ -589,7 +637,7 @@ balance(s,el){
  el.innerHTML=`${head(s)}<div class="q">${s.q}</div><div class="scale"><div class="base"></div><div class="post"></div><div class="beam"></div><div class="pan r"><div class="rope"></div><div class="dish">٠</div></div><div class="pan l"><div class="rope"></div><div class="dish">٠</div></div></div>
  <div class="buckets"><div class="bucket pro"><h3>المزايا <span class="n">٠</span></h3><div class="addrow"><input id="balP" placeholder="أضيفي ميزة…" aria-label="أضيفي ميزة"><button class="btn v" data-c="p">إضافة</button></div><div class="list"></div></div>
  <div class="bucket con"><h3>العيوب <span class="n">٠</span></h3><div class="addrow"><input id="balC" placeholder="أضيفي عيبًا…" aria-label="أضيفي عيبًا"><button class="btn v" data-c="c">إضافة</button></div><div class="list"></div></div></div>
- <div class="row"><button class="btn" data-a="clear">${ic("redo")} تفريغ الميزان</button></div><div class="answer" data-s="1">${s.after}</div>`;
+ <div class="row"><button class="btn" data-a="clear">${ic("redo")} تفريغ الميزان</button></div><div class="box">${s.after}</div>`;
  const draw=()=>{const [bp,bc]=$$(".bucket",el);
   [["p",bp],["c",bc]].forEach(([k,b])=>{$(".list",b).innerHTML=data[k].map((t,i)=>`<button class="card" data-k="${k}" data-i="${i}" title="اضغطي للحذف" style="display:block;width:100%">${esc(t)}</button>`).join("");$(".n",b).textContent=ar(data[k].length)});
   $$(".list .card",el).forEach(c=>c.onclick=()=>{data[c.dataset.k].splice(+c.dataset.i,1);store.set("balance",data);draw()});
@@ -608,14 +656,14 @@ proscons(s,el){
 },
 video(s,el){
  el.innerHTML=`<div class="row" style="justify-content:space-between"><div><div class="eyebrow"><i></i>${esc(s.label)}</div><h2 class="h2" style="margin-top:6px">${esc(s.title)}</h2></div>${(s.logos||[]).map(l=>`<img src="img/${l}.webp" alt="" style="height:56px;border-radius:10px">`).join("")}</div>
- <video class="vid" src="${s.src}" controls preload="metadata" playsinline></video>`;
+ <video class="vid" src="${s.src}" poster="img/poster-${s.src.split("/").pop().replace(".mp4","")}.jpg" controls preload="none" playsinline></video>`;
 },
 examples(s,el){
- const data=store.get("ex-"+idx+cur,s.seed);
+ const exk="ex-"+cur+idx;const data=store.get(exk,s.seed);
  el.innerHTML=`${head(s)}<div class="q">${s.q}</div><div class="buckets">${s.cats.map((c,i)=>`<div class="bucket"><h3>${esc(c)}</h3><div class="addrow"><input id="ex${i}" placeholder="اكتبي مثالًا من إجابات المجموعة…" aria-label="مثال"><button class="btn v" data-i="${i}">إضافة</button></div><div class="pool" style="border:0;padding:0;background:none"></div></div>`).join("")}</div>`;
  const draw=()=>$$(".bucket",el).forEach((b,i)=>{$(".pool",b).innerHTML=data[i].map((t,j)=>`<button class="card good" data-i="${i}" data-j="${j}" title="اضغطي للحذف">${esc(t)}</button>`).join("");
-  $$(".card",b).forEach(c=>c.onclick=()=>{data[i].splice(+c.dataset.j,1);store.set("ex-"+idx+cur,data);draw()})});
- const add=i=>{const inp=$("#ex"+i,el),v=inp.value.trim();if(!v)return;data[i].push(v);inp.value="";store.set("ex-"+idx+cur,data);draw()};
+  $$(".card",b).forEach(c=>c.onclick=()=>{data[i].splice(+c.dataset.j,1);store.set(exk,data);draw()})});
+ const add=i=>{const inp=$("#ex"+i,el),v=inp.value.trim();if(!v)return;data[i].push(v);inp.value="";store.set(exk,data);draw()};
  $$(".addrow button",el).forEach(b=>b.onclick=()=>add(+b.dataset.i));$$(".addrow input",el).forEach((n,i)=>n.onkeydown=e=>{if(e.key==="Enter")add(i)});draw();
 },
 sort(s,el){
@@ -628,7 +676,7 @@ sort(s,el){
  const upd=()=>{const ok=$$(".bucket .card",el).length;score.textContent=`${ar(ok)} / ${ar(s.items.length)}`;
   $$(".bucket",el).forEach(b=>$(".n",b).textContent=ar($$(".card",b).length));
   if(s.balance){const bs=$$(".bucket",el);tilt(el,$$(".card",bs[0]).length,$$(".card",bs[1]).length)}
-  if(ok===s.items.length){fb.className="fb g";fb.textContent=miss?`اكتمل التصنيف! (${ar(miss)} محاولة خاطئة)`:"ممتاز! تصنيف كامل بلا أخطاء.";burst()}};
+  if(ok===s.items.length){fb.className="fb g";fb.textContent=miss?`اكتمل التصنيف! (${ar(miss)} محاولة خاطئة)`:"ممتاز! تصنيف كامل بلا أخطاء.";burst();done(el)}};
  const drop=(card,b)=>{if(!card)return;const right=card.dataset.c===b.dataset.id;
   if(right){card.classList.remove("sel","bad");card.classList.add("good");card.draggable=false;b.appendChild(card);fb.className="fb g";fb.textContent="إجابة صحيحة!"}
   else{miss++;card.classList.remove("bad");void card.offsetWidth;card.classList.add("bad");fb.className="fb b";fb.textContent="حاولي مرة أخرى."}
@@ -651,7 +699,7 @@ quiz(s,el){
  el.innerHTML=`${head(s)}<div class="qz"><div class="qhead"><div class="dots">${s.qs.map(()=>"<i></i>").join("")}</div><span class="score"></span></div><div class="q" id="qq"></div><div class="opts"></div><div class="row"><span class="fb"></span><button class="btn v" data-a="next" hidden>السؤال التالي</button><button class="btn" data-a="again" hidden>${ic("redo")} إعادة الاختبار</button>${linkBtn(s.link)}</div></div>`;
  const opts=$(".opts",el),fb=$(".fb",el),nx=$('[data-a=next]',el),ag=$('[data-a=again]',el),dots=$$(".dots i",el);
  const show=()=>{dots.forEach((d,j)=>{d.className=res[j]===true?"g":res[j]===false?"b":j===i?"c":""});
-  if(i>=s.qs.length){const ok=res.filter(Boolean).length;$("#qq",el).innerHTML=`النتيجة: <b>${ar(ok)} من ${ar(s.qs.length)}</b>`;opts.innerHTML="";fb.className="fb g";fb.textContent=ok===s.qs.length?"ختامها مسك! إجابات كاملة.":"أحسنتنّ، راجعن الأسئلة التي أخطأتنّ فيها.";nx.hidden=true;ag.hidden=false;if(ok>=s.qs.length-1)burst();return}
+  if(i>=s.qs.length){const ok=res.filter(Boolean).length;$("#qq",el).innerHTML=`النتيجة: <b>${ar(ok)} من ${ar(s.qs.length)}</b>`;opts.innerHTML="";fb.className="fb g";fb.textContent=ok===s.qs.length?"ختامها مسك! إجابات كاملة.":"أحسنتنّ، راجعن الأسئلة التي أخطأتنّ فيها.";nx.hidden=true;ag.hidden=false;done(el);if(ok>=s.qs.length-1)burst();return}
   const [q,o,a]=s.qs[i];$("#qq",el).textContent=`${ar(i+1)}. ${q}`;fb.textContent="";nx.hidden=true;ag.hidden=true;
   opts.innerHTML=o.map((x,j)=>`<button class="opt" data-j="${j}">${esc(x)}</button>`).join("");
   $$(".opt",opts).forEach(b=>b.onclick=()=>{if(res[i]!==undefined)return;const j=+b.dataset.j;res[i]=j===a;b.classList.add(j===a?"good":"bad");opts.children[a].classList.add("good");
@@ -662,11 +710,11 @@ tf(s,el){
  el.innerHTML=`${head(s)}<div class="q">${s.q}</div><div class="grid" style="gap:10px">${s.items.map(([t,v,why],i)=>`<div class="oitem" data-i="${i}"><span class="no">${ar(i+1)}</span><span class="t">${esc(t)}<small class="muted" style="display:block" hidden>${esc(why)}</small></span><span class="mv"><button class="btn" data-v="1" style="width:auto;height:auto;padding:6px 12px">صح</button><button class="btn" data-v="0" style="width:auto;height:auto;padding:6px 12px">خطأ</button></span></div>`).join("")}</div><div class="row"><span class="score"></span>${linkBtn(s.link)}</div>`;
  let ok=0,done=0;
  $$(".oitem",el).forEach(r=>{const [,v]=s.items[+r.dataset.i];$$("[data-v]",r).forEach(b=>b.onclick=()=>{if(r.dataset.done)return;r.dataset.done=1;done++;const right=(b.dataset.v==="1")===v;if(right)ok++;r.classList.add(right?"good":"bad");$("small",r).hidden=!$("small",r).textContent;
-  b.classList.add(right?"v":"");$(".score",el).textContent=`${ar(ok)} صحيحة من ${ar(done)}`;if(done===s.items.length&&ok===done)burst()})});
+  b.classList.add(right?"v":"");$(".score",el).textContent=`${ar(ok)} صحيحة من ${ar(done)}`;if(done===s.items.length){mark(el);if(ok===done)burst()}})});
 },
 think(s,el){
  el.innerHTML=`${head(s)}<div style="flex:1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center"><img src="img/brain.webp" alt="" style="width:clamp(110px,16vw,200px)"><div class="grid" style="gap:16px"><div class="q" style="font-size:clamp(1.2rem,2.2vw,1.8rem)">${esc(s.q)}</div><div class="row"><button class="btn v" data-a="show">${ic("eye")} إظهار الإجابة</button></div><div class="answer" data-s="1">${s.a}</div></div></div>`;
- $('[data-a=show]',el).onclick=()=>setStep(1);return 1;
+ $('[data-a=show]',el).onclick=()=>reveal(el);return 1;
 },
 flow(s,el){
  el.innerHTML=`${head(s)}<p class="lead" style="margin:0">${s.lead}</p><div class="flow" style="--n:${s.steps.length}">${s.steps.map(([i,t],j)=>`<div class="fstep" data-s="${j+1}"><div class="tile" style="min-height:0;border:0;padding:0;background:none"><div class="ic">${ic(i)}</div></div>${esc(t)}</div>`).join("")}</div>
@@ -700,7 +748,7 @@ order(s,el){
  const reset=()=>{do{ord=shuffle(s.steps.map((_,k)=>k))}while(ord.every((k,j)=>k===j));draw()};
  $('[data-a=reset]',el).onclick=reset;
  $('[data-a=check]',el).onclick=()=>{let ok=0;$$(".oitem",list).forEach((r,j)=>{const g=ord[j]===j;if(g)ok++;r.classList.toggle("good",g);r.classList.toggle("bad",!g)});
-  if(ok===ord.length){fb.className="fb g";fb.textContent="ترتيب صحيح! طبّقن الخطوات الآن على أجهزتكن.";burst()}else{fb.className="fb b";fb.textContent=`${ar(ok)} من ${ar(ord.length)} في مكانها الصحيح.`}};
+  if(ok===ord.length){fb.className="fb g";fb.textContent="ترتيب صحيح! طبّقن الخطوات الآن على أجهزتكن.";burst();done(el)}else{fb.className="fb b";fb.textContent=`${ar(ok)} من ${ar(ord.length)} في مكانها الصحيح.`}};
  reset();
 },
 closing(s,el){
@@ -715,48 +763,76 @@ function tilt(el,p,c){const beam=$(".beam",el);if(!beam)return;const a=Math.max(
  const w=beam.offsetWidth/2||200,dy=Math.sin(a*Math.PI/180)*w;$(".pan.r",el).style.transform=`translate(-50%,${dy}px)`;$(".pan.l",el).style.transform=`translate(-50%,${-dy}px)`;
  $(".pan.r .dish",el).textContent=ar(p);$(".pan.l .dish",el).textContent=ar(c)}
 
-/* ---------- navigation ---------- */
-function setStep(n){step=Math.max(step,n);applySteps()}
-function applySteps(){$$("[data-s]",main).forEach(e=>e.classList.toggle("off",+e.dataset.s>step))}
-function render(){
- const L=LESSONS[cur],s=L.slides[idx];
- main.innerHTML='<section class="stage" aria-live="polite"></section>';
- const st=$(".stage",main);
- $$("video").forEach(v=>v.pause());
- maxStep=R[s.k](s,st)||0;
- if(step<0)step=maxStep;
- applySteps();
- $$("[data-timer]",st).forEach(b=>b.onclick=()=>startTimer(+b.dataset.timer*60));
- $("#lessonName").textContent=L.name;$("#secName").textContent=s.sec;
- $("#barFill").style.width=((idx+1)/L.slides.length*100)+"%";
- $("#pSec").textContent=s.sec;$("#pNum").textContent=`${ar(idx+1)} / ${ar(L.slides.length)}`;
- $("#prevBtn").disabled=idx===0&&step===0;
- store.set("pos-"+cur,idx);
- try{history.replaceState(null,"","#"+cur+"-"+(idx+1))}catch(e){}
+/* ---------- website ---------- */
+let secs=[];
+const AUTO=new Set(["rules","wordorder","tiles","sort","quiz","tf","order"]);
+const STANDALONE=new Set(["البداية","أهداف الدرس","قيمة وطنية","إثراء","قيمة دينية","نشاط ختامي","الختام"]);
+const SECTITLE={"البداية":"قبل أن نبدأ","نشاط ختامي":"نشاط ختامي (إغلاق الدرس)","إثراء":"إثراء (أضيفي إلى معلوماتي)"};
+function reveal(el){$$(".answer",el).forEach(a=>a.hidden=false);$$(".showans",el).forEach(b=>b.remove())}
+function mark(el){if(!el||!el.dataset.act||el.classList.contains("done"))return;el.classList.add("done");el.insertAdjacentHTML("beforeend",'<span class="donebadge">✓ تم النشاط</span>');$$(".finish",el).forEach(b=>b.remove());
+ const d=store.get("done-"+cur,[]);if(!d.includes(el.id)){d.push(el.id);store.set("done-"+cur,d)}updMeter()}
+function done(el){mark(el)}
+function updMeter(){const all=$$(".block[data-act]",main),d=all.filter(b=>b.classList.contains("done")).length;const m=$("#meterFill");
+ if(m){m.style.width=(all.length?d/all.length*100:0)+"%";$("#meterTxt").textContent=`إنجاز الفصل: ${ar(d)} من ${ar(all.length)} أنشطة`}
+ secs.forEach(s=>{const bl=all.filter(b=>b.dataset.sec===s.id);const ch=$(`#subnav [data-to="${s.id}"]`);if(ch&&bl.length&&bl.every(b=>b.classList.contains("done"))&&!$(".ok",ch))ch.insertAdjacentHTML("afterbegin",'<span class="ok">✓</span>')})}
+function renderLesson(k){
+ const L=LESSONS[k];secs=[];
+ const title=L.slides.find(s=>s.k==="title"),quote=L.slides.find(s=>s.k==="quote");
+ main.innerHTML=`<div class="site"><section class="lhero"><div><span class="tag">${esc(title.unit)} · ${esc(title.lesson)}</span><h1>${esc(title.part)}</h1><div class="qt"><small>إضاءة</small>${esc(quote.text)}</div><div class="meter"><div class="track"><i id="meterFill"></i></div><b id="meterTxt"></b></div></div><img src="img/${k==="l1"?"shop":"cart"}.webp" alt=""></section></div>`;
+ const site=$(".site",main);let last=null,secId="";
+ const addHead=(t,sub,img,ring)=>{const id="s"+(secs.length+1);secs.push({id,t});secId=id;const alt=/نشاط|مراجعة/.test(t);
+  site.insertAdjacentHTML("beforeend",`<header class="sechead${alt?" alt":""}" id="${id}"><div class="num">${ar(secs.length)}</div><div><h2>${esc(t)}</h2>${sub?`<p>${esc(sub)}</p>`:""}</div>${img?`<img src="img/${img}.webp" alt="">`:""}</header>`)};
+ L.slides.forEach((s,i)=>{
+  if(s.k==="quote"||s.k==="title")return;
+  if(s.k==="divider"){addHead(s.title,s.sub,s.img);last=s.sec;return}
+  if(s.sec!==last&&STANDALONE.has(s.sec))addHead(SECTITLE[s.sec]||s.sec,"",null);
+  last=s.sec;
+  const el=document.createElement("section");el.className="stage block";el.id=k+"b"+i;el.dataset.sec=secId;
+  const counted=AUTO.has(s.k)||!!s.meta;if(counted)el.dataset.act="1";
+  site.appendChild(el);idx=i;R[s.k](s,el);
+  $$("[data-s]",el).forEach(e=>{const isAns=e.classList.contains("answer");e.removeAttribute("data-s");
+   if(isAns){e.hidden=true;if(!$("[data-a=show]",el)){const b=document.createElement("button");b.className="btn v showans";b.innerHTML=ic("eye")+" إظهار الإجابة";b.onclick=()=>{e.hidden=false;b.remove()};e.before(b)}}});
+  $$("[data-timer]",el).forEach(b=>b.onclick=()=>startTimer(+b.dataset.timer*60));
+  if(counted&&!AUTO.has(s.k)){const b=document.createElement("button");b.className="btn finish";b.style.alignSelf="flex-start";b.innerHTML=ic("check")+" أنهينا هذا النشاط";b.onclick=()=>{mark(el);burst()};el.appendChild(b)}
+ });
+ const other=k==="l1"?"l2":"l1";
+ site.insertAdjacentHTML("beforeend",`<div class="pager"><button class="btn" data-go2="home">الصفحة الرئيسية</button><button class="btn v" data-go2="${other}">انتقلي إلى ${esc(LESSONS[other].name)}</button></div>`);
+ $$("[data-go2]",site).forEach(b=>b.onclick=()=>go(b.dataset.go2==="home"?null:b.dataset.go2));
+ store.get("done-"+k,[]).forEach(id=>{const el=document.getElementById(id);if(el)mark(el)});
+ const sn=$("#subnav");sn.innerHTML=secs.map(s=>`<button data-to="${s.id}">${esc(s.t)}</button>`).join("");sn.hidden=false;
+ $$("button",sn).forEach(b=>b.onclick=()=>document.getElementById(b.dataset.to).scrollIntoView({behavior:"smooth"}));
+ updMeter();
 }
-function next(){if(!cur)return;if(step<maxStep){step++;applySteps();return}if(idx<LESSONS[cur].slides.length-1){idx++;step=0;render();window.scrollTo(0,0)}}
-function prev(){if(!cur)return;if(step>0){step--;applySteps();$("#prevBtn").disabled=idx===0&&step===0;return}if(idx>0){idx--;step=-1;render();window.scrollTo(0,0)}}
-function go(lesson,i){
- cur=lesson;
- if(!lesson){nav.hidden=true;renderHome();try{history.replaceState(null,"","#home")}catch(e){};return}
- nav.hidden=false;idx=i!=null?i:0;step=0;render();window.scrollTo(0,0);
+function go(lesson){
+ cur=lesson;$$(".mainnav a").forEach(a=>a.classList.toggle("cur",a.dataset.go===(lesson||"home")));
+ if(!lesson){$("#subnav").hidden=true;secs=[];renderHome()}else{$("#lessonName").textContent=LESSONS[lesson].short;renderLesson(lesson)}
+ try{history.replaceState(null,"","#"+(lesson||"home"))}catch(e){}
+ window.scrollTo(0,0);onScroll();
 }
+function onScroll(){
+ const h=document.documentElement,max=h.scrollHeight-innerHeight;$("#readFill").style.width=(max>0?scrollY/max*100:0)+"%";
+ $("#toTop").hidden=scrollY<600;
+ if(!secs.length)return;const off=$(".top").offsetHeight+30;let c=secs[0].id;
+ secs.forEach(s=>{const e=document.getElementById(s.id);if(e&&e.getBoundingClientRect().top<off)c=s.id});
+ $$("#subnav button").forEach(b=>{const on=b.dataset.to===c;if(on&&!b.classList.contains("cur")){b.classList.add("cur");b.scrollIntoView({block:"nearest",inline:"center"})}else if(!on)b.classList.remove("cur")});
+}
+addEventListener("scroll",onScroll,{passive:true});
+$("#toTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+$("#brandBtn").onclick=()=>go(null);
 function renderHome(){
- $("#lessonName").textContent="مقدمة في التجارة الإلكترونية";$("#secName").textContent="الوحدة الثالثة · الدرس الأول";
- const card=(k,n,items)=>{const L=LESSONS[k];const pos=store.get("pos-"+k,0);return `<div class="lcard"><div class="num">${n}</div><h3>${esc(L.name)}</h3><ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul><div class="muted" style="font-size:.88rem">${ar(L.slides.length)} شريحة تفاعلية</div><div class="row" style="margin-top:auto"><button class="go" data-l="${k}">ابدئي العرض</button>${pos>0?`<button class="btn" data-l="${k}" data-p="${pos}">تابعي من الشريحة ${ar(pos+1)}</button>`:""}</div></div>`};
- main.innerHTML=`<div class="home"><section class="hero"><div><span class="tag">الوحدة الثالثة · الدرس الأول</span><h1>مقدمة في التجارة الإلكترونية</h1><p>عرض تفاعلي للحصة التزامنية: أنشطة، ألعاب تصنيف وترتيب، اختبارات قصيرة، ومقاطع فيديو.</p></div><img src="img/shop.webp" alt=""></section>
+ $("#lessonName").textContent="التجارة الإلكترونية";
+ const card=(k,n,items)=>{const L=LESSONS[k];const d=store.get("done-"+k,[]).length;return `<div class="lcard"><div class="num">${n}</div><h3>${esc(L.name)}</h3><ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul>${d?`<div class="muted" style="font-size:.88rem">أنجزتنّ ${ar(d)} من الأنشطة</div>`:""}<div class="row" style="margin-top:auto"><button class="go" data-l="${k}">ادخلي الدرس</button></div></div>`};
+ main.innerHTML=`<div class="home"><section class="hero"><div><span class="tag">الوحدة الثالثة · الدرس الأول</span><h1>مقدمة في التجارة الإلكترونية</h1><p>موقع تفاعلي للحصة التزامنية: تعلّمي، العبي، وتحدّي مجموعتك في كل قسم.</p></div><img src="img/shop.webp" alt="" style="animation:float 5s ease-in-out infinite"></section>
  <div class="lessons">${card("l1","الجزء الأول",["تعريف التجارة الإلكترونية والأنظمة التي تعتمد عليها","مزايا وعيوب التجارة الإلكترونية (لعبة الميزان)","نماذج B2B و B2C و C2C والأسواق الإلكترونية"])}${card("l2","الجزء الثاني",["السلع الافتراضية وتحديد قيمتها","التسوق عبر الإنترنت وطرق العثور على المنتج","الدخول للمتجر الإلكتروني باستخدام LocalWP"])}</div>
- <div class="howto"><span><kbd>←</kbd> أو <kbd>مسافة</kbd> التالي</span><span><kbd>→</kbd> السابق</span><span><kbd>T</kbd> المؤقت</span><span><kbd>R</kbd> اختيار طالبة</span><span><kbd>F</kbd> ملء الشاشة</span><span>كل ضغطة «التالي» تُظهر العنصر التالي في الشريحة، ثم تنتقل للشريحة التالية.</span></div></div>`;
- $$("[data-l]",main).forEach(b=>b.onclick=()=>go(b.dataset.l,b.dataset.p?+b.dataset.p:0));
+ <div class="quick">${[["tap","ألعاب ترتيب وتصنيف"],["check","اختبارات قصيرة بتصحيح فوري"],["play","مقاطع فيديو للقيم والإثراء"],["timer","مؤقت ونقاط للمجموعات"]].map(([i,t])=>`<div class="tile on"><div class="ic">${ic(i)}</div>${t}</div>`).join("")}</div>
+ <div class="howto"><span><kbd>T</kbd> المؤقت</span><span><kbd>R</kbd> اختيار طالبة</span><span><kbd>F</kbd> ملء الشاشة</span><span>تُحفظ الأسماء والنقاط والإجابات المكتوبة على هذا الجهاز فقط.</span></div></div>`;
+ $$("[data-l]",main).forEach(b=>b.onclick=()=>go(b.dataset.l));
 }
-$("#nextBtn").onclick=next;$("#prevBtn").onclick=prev;
 document.addEventListener("keydown",e=>{
  if(e.target.closest("input,textarea")){if(e.key==="Escape")e.target.blur();return}
  if($("#layer").children.length&&e.key==="Escape"){closeLayer();return}
  const k=e.key;
- if(k==="ArrowLeft"||k===" "||k==="PageDown"){if(e.target.closest("button,video")&&k===" ")return;e.preventDefault();next()}
- else if(k==="ArrowRight"||k==="PageUp"){e.preventDefault();prev()}
- else if(k==="t"||k==="T"||k==="ف")openTool("timer");
+ if(k==="t"||k==="T"||k==="ف")openTool("timer");
  else if(k==="r"||k==="R"||k==="ق")openTool("pick");
  else if(k==="f"||k==="F"||k==="ب")toggleFs();
 });
@@ -768,12 +844,11 @@ function drawer(title,html){layer.innerHTML=`<div class="scrim"></div><aside cla
  $(".scrim",layer).onclick=closeLayer;$(".close-x",layer).onclick=closeLayer;return $(".drawer",layer)}
 $$("[data-tool]").forEach(b=>b.onclick=()=>openTool(b.dataset.tool));
 $("#tocBtn").onclick=()=>{
- if(!cur){const d=drawer("الدروس",`<div class="toc">${Object.entries(LESSONS).map(([k,L])=>`<a href="#${k}-1" data-l="${k}"><span>${k==="l1"?"١":"٢"}</span>${esc(L.name)}</a>`).join("")}</div>`);$$("a",d).forEach(a=>a.onclick=e=>{e.preventDefault();closeLayer();go(a.dataset.l)});return}
- const L=LESSONS[cur];
- const d=drawer("فهرس الشرائح",`<div class="toc">${L.slides.map((s,i)=>`<a href="#${cur}-${i+1}" data-i="${i}" class="${i===idx?"cur":""}"><span>${ar(i+1)}</span>${esc(s.title||s.label||s.sec)}${s.title&&s.sec!==s.title?` <small class="muted">· ${esc(s.sec)}</small>`:""}</a>`).join("")}</div><button class="btn" id="tocHome">العودة إلى صفحة الدروس</button>`);
- $$("a",d).forEach(a=>a.onclick=e=>{e.preventDefault();closeLayer();idx=+a.dataset.i;step=0;render()});
+ if(!cur||!secs.length){const d=drawer("الدروس",`<div class="toc">${Object.entries(LESSONS).map(([k,L])=>`<a href="#${k}" data-l="${k}"><span>${k==="l1"?"١":"٢"}</span>${esc(L.name)}</a>`).join("")}</div>`);$$("a",d).forEach(a=>a.onclick=e=>{e.preventDefault();closeLayer();go(a.dataset.l)});return}
+ const cs=$("#subnav button.cur");
+ const d=drawer("أقسام الدرس",`<div class="toc">${secs.map((s,i)=>`<a href="#${cur}" data-to="${s.id}" class="${cs&&cs.dataset.to===s.id?"cur":""}"><span>${ar(i+1)}</span>${esc(s.t)}</a>`).join("")}</div><button class="btn" id="tocHome">الصفحة الرئيسية</button>`);
+ $$("a",d).forEach(a=>a.onclick=e=>{e.preventDefault();closeLayer();document.getElementById(a.dataset.to).scrollIntoView({behavior:"smooth"})});
  $("#tocHome",d).onclick=()=>{closeLayer();go(null)};
- const c=$("a.cur",d);c&&c.scrollIntoView({block:"center"});
 };
 
 let tLeft=0,tTotal=0,tRun=false,tInt=null;
@@ -827,8 +902,8 @@ function burst(){
 }
 
 /* boot */
-function fromHash(){const h=(location.hash||"").slice(1),m=h.match(/^(l[12])(?:-(\d+))?$/);
- if(m){const n=Math.min(Math.max(1,+(m[2]||1)),LESSONS[m[1]].slides.length);if(m[1]!==cur||n-1!==idx)go(m[1],n-1)}else if(cur!==null||!main.children.length)go(null)}
+function fromHash(){const h=(location.hash||"").slice(1),m=h.match(/^(l[12])(?:-\d+)?$/);const want=m?m[1]:null;
+ if(want!==cur||!main.children.length)go(want)}
 window.addEventListener("hashchange",fromHash);
 fromHash();
 })();
